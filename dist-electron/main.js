@@ -3,10 +3,16 @@ const { app, BrowserWindow } = require("electron");
 const { join } = require("path");
 process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";
 const createWindow = () => {
+  console.log("ww", process.env.VITE_DEV_SERVER_URL);
   const win = new BrowserWindow({
-    width: 800,
+    // width: 800,
+    width: 1e3,
     height: 600,
-    title: "electron-vite",
+    title: "",
+    titleBarStyle: "hidden",
+    // 隐藏原生标题栏
+    frame: false,
+    // 移除窗口框架
     icon: join(__dirname, "../public/logo.ico")
   });
   if (process.env.VITE_DEV_SERVER_URL) {

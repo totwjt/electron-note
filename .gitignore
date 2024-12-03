@@ -5,20 +5,88 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Dependency directories
+node_modules/
+jspm_packages/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
+# Electron build directories
+build/
+dist/
+release/
+
+# Compiled source files
+*.tsbuildinfo
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+*.d.ts
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+Icon?
+.idea/
+.vscode/
+*.iml
+*.class
+
+# Testing files
+coverage/
+*.lcov
+.nyc_output/
+
+# Environment variables
+.env
+.env.*.local
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+*.temp
+
+# Package files
+*.tgz
+*.tar.gz
+
+# Electron specific files
+electron-packager/
+*.asar
+*.crash
+*.pid
+*.seed
+*.pid.lock
+
+# Build artifacts
+*.exe
+*.app
+*.dmg
+*.deb
+*.snap
+*.rpm
+*.msi
+
+# GitHub Actions
+.github/
+
+# npm package locks
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Git LFS
+*.lfs
+
+# Ignore macOS-specific files
+.AppleDouble
+.LSOverride
+
+# Editor backups
+*~
+*.bak
+*.swp
+*.swo

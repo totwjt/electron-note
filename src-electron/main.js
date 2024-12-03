@@ -8,10 +8,14 @@ process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
 // 创建浏览器窗口时，调用这个函数。
 const createWindow = () => {
+    console.log('ww', process.env.VITE_DEV_SERVER_URL);
     const win = new BrowserWindow({
-        width: 800,
+        // width: 800,
+        width: 1000,
         height: 600,
-        title: 'electron-vite',
+        title: '',
+        titleBarStyle: 'hidden', // 隐藏原生标题栏
+        frame: false,            // 移除窗口框架
         icon: join(__dirname, '../public/logo.ico'),
     })
 
