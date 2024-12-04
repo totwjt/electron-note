@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+import { presetVarlet } from '@varlet/preset-tailwindcss'
+
 export default {
   content: [
     "./index.html",
@@ -9,4 +12,5 @@ export default {
     extend: {},
   },
   plugins: [],
+  presets: [presetVarlet()]
 }

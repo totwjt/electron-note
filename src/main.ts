@@ -6,6 +6,8 @@ import Varlet from '@varlet/ui'
 import '@varlet/touch-emulator'
 import '@varlet/ui/es/style'
 
+// import './scss/reset.css'
+
 import App from './App.vue'
 import router from './router'
 

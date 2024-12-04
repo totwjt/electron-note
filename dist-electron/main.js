@@ -1,26 +1,32 @@
 "use strict";
 const { app, BrowserWindow } = require("electron");
 const { join } = require("path");
-process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";
+let mainWindow = null;
 const createWindow = () => {
-  console.log("ww", process.env.VITE_DEV_SERVER_URL);
-  const win = new BrowserWindow({
-    // width: 800,
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+    return;
+  }
+  mainWindow = new BrowserWindow({
     width: 1e3,
     height: 600,
     title: "",
-    titleBarStyle: "hidden",
-    // 隐藏原生标题栏
-    frame: false,
-    // 移除窗口框架
-    icon: join(__dirname, "../public/logo.ico")
+    icon: join(__dirname, "../public/logo.ico"),
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
   });
   if (process.env.VITE_DEV_SERVER_URL) {
-    win.loadURL(process.env.VITE_DEV_SERVER_URL);
-    win.webContents.openDevTools();
+    mainWindow.loadURL(process.env.VITE_DEV_SERVER_URL);
+    mainWindow.webContents.openDevTools();
   } else {
-    win.loadFile(join(__dirname, "../dist/index.html"));
+    mainWindow.loadFile(join(__dirname, "../dist/index.html"));
   }
+  mainWindow.on("closed", () => {
+    mainWindow = null;
+  });
 };
 app.whenReady().then(() => {
   createWindow();

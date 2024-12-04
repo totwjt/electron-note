@@ -2,11 +2,11 @@
     <div class="layout">
 
       <!-- 顶部导航 -->
-      <header class="layout-header text-center">
+      <header class="text-center layout-header">
         <Topbar />
       </header>
 
-      <div class="layout-content">
+      <div class="flex flex-row layout-content">
         <!-- 左侧导航 -->
         <aside class="layout-sidebar">
           <Sidebar />

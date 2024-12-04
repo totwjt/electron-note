@@ -1,45 +1,49 @@
-// src-electron/main.js
 const { app, BrowserWindow } = require('electron')
 const { join } = require('path')
 
-// 屏蔽安全警告
-// ectron Security Warning (Insecure Content-Security-Policy)
-process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
+let mainWindow = null;
 
-// 创建浏览器窗口时，调用这个函数。
 const createWindow = () => {
-    console.log('ww', process.env.VITE_DEV_SERVER_URL);
-    const win = new BrowserWindow({
-        // width: 800,
+    // 如果窗口已存在，直接显示并聚焦
+    if (mainWindow) {
+        if (mainWindow.isMinimized()) mainWindow.restore();
+        mainWindow.focus();
+        return;
+    }
+
+    // 创建新窗口
+    mainWindow = new BrowserWindow({
         width: 1000,
         height: 600,
         title: '',
-        titleBarStyle: 'hidden', // 隐藏原生标题栏
-        frame: false,            // 移除窗口框架
         icon: join(__dirname, '../public/logo.ico'),
-    })
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+        }
+    });
 
-    // win.loadURL('http://localhost:3000')
-    // development模式
-    if(process.env.VITE_DEV_SERVER_URL) {
-        win.loadURL(process.env.VITE_DEV_SERVER_URL)
-        // 开启调试台
-        win.webContents.openDevTools()
-    }else {
-        win.loadFile(join(__dirname, '../dist/index.html'))
+    if (process.env.VITE_DEV_SERVER_URL) {
+        mainWindow.loadURL(process.env.VITE_DEV_SERVER_URL);
+        mainWindow.webContents.openDevTools();
+    } else {
+        mainWindow.loadFile(join(__dirname, '../dist/index.html'));
     }
-}
 
-// Electron 会在初始化后并准备
+    // 监听窗口关闭事件
+    mainWindow.on('closed', () => {
+        mainWindow = null;
+    });
+};
+
 app.whenReady().then(() => {
-    createWindow()
+    createWindow();
+
     app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) createWindow()
-    })
-})
+        if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    });
+});
 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') app.quit()
-})
-
-
+    if (process.platform !== 'darwin') app.quit();
+});

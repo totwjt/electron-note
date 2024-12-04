@@ -1,6 +1,6 @@
 <template>
-    <div class="text-3xl font-bold underline">
-        Topbar1
+    <div class="text-">
+        资产
     </div>
 </template>
 
